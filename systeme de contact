@@ -1,17 +1,19 @@
 #include <stdio.h>
+int nmr=2;
 struct Contacts{
 char nom[20];
 char nmrTel[20];
 char AdressMail[20];
-}struct Contacts  tab[2];
+};
+struct Contacts  tab[2];
 void AjouterContact(){
     for(int i=0;i<2;i++){
         printf("entrer le nom de contact %d\n",i+1);
-            scanf("%s",&tab[i].nom);
+            scanf("%s",tab[i].nom);
          printf("entrer le nmro telephone de contact %d\n",i+1);
-            scanf("%s",&tab[i].nmrTel);
+            scanf("%s",tab[i].nmrTel);
          printf("entrer adresse mail de contact %d\n",i+1);
-            scanf("%s",&tab[i].AdressMail);
+            scanf("%s",tab[i].AdressMail);
     }
 }
 void ModifierContact(){
@@ -27,9 +29,9 @@ void ModifierContact(){
              trouv=1;
                  printf("oui trouve\n");
                 printf("entrer les nouvelles valeurs de modification  nmrtelephone et adress mail\n");
-                scanf("%s %s",&nvlTel,&nvlAdress);
-                       strcpy(tab[i].AdressMail=nvlAdress);
-                        strcpy(tab[i].AdressMail=nvlAdress);
+                scanf("%s %s",nvlTel,nvlAdress);
+                       strcpy(tab[i].AdressMail,nvlAdress);
+                        strcpy(tab[i].nmrTel,nvlTel);
            
            
             
@@ -48,14 +50,15 @@ void ModifierContact(){
         char nomsearch[20];
         int trouv=0;
          printf("entrer la valeur de recherche");
-            scanf("%s",&nomsearch);
+            scanf("%s",nomsearch);
      for(int i=0;i<2;i++){
-         if (strcmp(nomsearch, Tab[i].nom) == 0) {
+         if (strcmp(nomsearch, tab[i].nom) == 0) {
                  trouv=1;
                  printf("oui trouve\n");
-                 strcpy( tab[i].nom=tab[i+1].nom);
-                strcpy( tab[i].AdressMail=tab[i+1].AdressMail);
-                strcpy( tab[i].nmrTel=tab[i+1].nmrTel);
+                 strcpy( tab[i].nom,tab[i+1].nom);
+                strcpy( tab[i].AdressMail,tab[i+1].AdressMail);
+                strcpy( tab[i].nmrTel,tab[i+1].nmrTel);
+
                  break;
             }
              
