@@ -1,0 +1,85 @@
+#include <stdio.h>
+struct Contacts{
+char nom[20];
+char nmrTel[20];
+char AdressMail[20];
+}struct Contacts  tab[2];
+void AjouterContact(){
+    for(int i=0;i<2;i++){
+        printf("entrer le nom de contact %d\n",i+1);
+            scanf("%s",&tab[i].nom);
+         printf("entrer le nmro telephone de contact %d\n",i+1);
+            scanf("%s",&tab[i].nmrTel);
+         printf("entrer adresse mail de contact %d\n",i+1);
+            scanf("%s",&tab[i].AdressMail);
+    }
+}
+void ModifierContact(){
+    char nomsearch[20];
+    char nvlTel[20];
+    char nvlAdress[20];
+    int trouv=0;
+    
+    printf("entrer la valeur de recherche");
+    scanf("%s",&nomsearch);
+     for(int i=0;i<2;i++){
+         if (strcmp(nomsearch, Tab[i].nom) == 0) {
+             trouv=1;
+                 printf("oui trouve\n");
+                printf("entrer les nouvelles valeurs de modification  nmrtelephone et adress mail\n");
+                scanf("%s %s",&nvlTel,&nvlAdress);
+                       strcpy(tab[i].AdressMail=nvlAdress);
+                        strcpy(tab[i].AdressMail=nvlAdress);
+           
+           
+            
+             }
+             
+         }
+    if(trouv==1){
+          
+            printf("bonne modification");
+        
+    }else{
+        printf("non trouve");
+    }
+     }
+    void SupprimContact(){
+        char nomsearch[20];
+        int trouv=0;
+         printf("entrer la valeur de recherche");
+            scanf("%s",&nomsearch);
+     for(int i=0;i<2;i++){
+         if (strcmp(nomsearch, Tab[i].nom) == 0) {
+                 trouv=1;
+                 printf("oui trouve\n");
+                 strcpy( tab[i].nom=tab[i+1].nom);
+                strcpy( tab[i].AdressMail=tab[i+1].AdressMail);
+                strcpy( tab[i].nmrTel=tab[i+1].nmrTel);
+                 break;
+            }
+             
+    }
+    if(trouv==1){
+       printf("bonne suppression");
+        
+    }else{
+        printf("non trouve");
+    }
+        
+    }
+    
+void AfficherContact(){
+    for(int i=0;i<2;i++){
+        printf("les infos de contact%d",i+1);
+        printf("le nom :%s\n"tab[i].nom);
+        printf("le adressMail:%s\n"tab[i].AdressMail);
+        printf("le nmro telephone :%s\n"tab[i].nmrTel);
+    }
+    
+}
+
+int main() {
+    printf("Hello world!\n");
+    return 0;
+}
