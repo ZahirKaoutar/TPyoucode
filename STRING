@@ -1,0 +1,110 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+
+  
+//  EXERCICE DE INVERSER MOT 
+  
+//   int n;
+//   int cara;
+//   printf("entrer la taille de tab");
+//   scanf("%d",&n);
+//   printf("entrer la taille de caractere");
+//   scanf("%d",&cara);
+  
+//   char tab[n];
+//   char name[cara];
+//   printf("entrer le nom ");
+//   scanf("%s",name);
+ 
+     
+       
+      
+//       for(int i=0;i<n;i++){
+//       tab[i]=name[i];
+     
+      
+
+  
+  
+  
+  
+ 
+//   }
+//     for(int i=n-1;i>=0;i--){
+//      printf("%c",tab[i]);
+     
+      
+//   }
+  
+//   int taille;
+//   char nom[]="hello";
+//   printf("entrer la chain de caractere ");
+//     fgets(nom,sizeof(nom),stdin);
+//   taille= sizeof(nom)/sizeof(nom[0]);
+//     for(int i=taille-1;i>=0;i--){
+//      printf("%c",nom[i]);
+     
+      
+//   }
+//Exercice 2 : Compteur de voyelles
+
+// int taille;
+// printf("entrer la taille ");
+//   fgets(nom,sizeof(nom),stdin);
+
+//  char nom[]="hello";
+//   int count=0;
+ 
+//   printf("entrer la chain de caractere ");
+//   fgets(nom,sizeof(nom),stdin);
+//      int taille= strlen(nom);
+
+//     for(int j=0;j<taille;j++){
+       
+//          if(nom[j]=='i'||nom[j]=='o'||nom[j]=='a'||nom[j]=='y'||nom[j]=='u'||nom[j]=='e'){
+//              count=count+1;
+             
+//          }
+     
+      
+//   }
+//   printf("nombre de voyelle en  chauine %d",count);
+  
+  
+//EXE3
+int n;
+int cara;
+printf("entrer la taille de tab");
+scanf("%d",&n);
+printf("entrer la taille de caractere");
+scanf("%d",&cara);
+int plindr=0;
+  if(n>cara){
+      char tab[n];
+ char name[cara];
+ printf("entrer le nom ");
+scanf("%s",name);
+    
+    for(int i=n;i>=0;i--){
+        tab[i]=name[i];
+    }
+     for(int j=0;j<n;j++){
+        if(tab[j]==name[j])
+        plindr=1;
+    }
+    if(plindr==1){
+        printf("oui");
+    }else{
+        printf("non");
+        
+    }
+    
+     
+  }
+
+
+    return 0;
+}
