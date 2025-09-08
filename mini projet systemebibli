@@ -3,26 +3,16 @@
 #include <string.h>
 
 
-    char Titre[2][20];
-    char auteur[2][20];
-    float quantite[2];
-     float prix[2];
+    char Titre[100][50];
+    char auteur[100][50];
+    int quantite[100];
+     int prix[100];
       
-     int nmb=2;
-
-void AjoutLivre(){
-    for(int i=0;i<nmb;i++){
-        
-            printf("entrer le titre de livre %d:",i+1);
-            scanf("%s",Titre[i]);
-            printf("entrer le auteur de livre %d:",i+1);
-            scanf("%s",auteur[i]);
-            printf("entrer quantite de livre %d:",i+1);
-            scanf("%f",&quantite[i]);
-             printf("entrer  prix de livre %d:",i+1);
-            scanf("%f",&prix[i]);
-       
-    }
+     int nmb=0;
+     int stop=0;
+void viderBuff() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) {}
 }
 void AfficherLivre(){
     for(int i=0;i<nmb;i++){
@@ -32,13 +22,64 @@ void AfficherLivre(){
             
         printf("Auteur de livre: %s\t ",auteur[i]);
             
-        printf("Quantite de livre nmr :%.02f\t :",quantite[i]);
+        printf("Quantite de livre nmr :%d\t :",quantite[i]);
             
-        printf("prix de livre nmr :%.02f\t\n",prix[i]);
+        printf("prix de livre nmr :%d\t\n",prix[i]);
            
        
     }
 }
+void AffichernombreT(){
+    int s=0;
+    printf("le nombre totale en stock des livres est:%d\n",nmb);
+     for(int i=0;i<nmb;i++){
+         s=s+quantite[i];
+        
+       
+    }
+    printf("La somme des livres :%d\t :",s);
+    
+    
+           
+       
+    }
+
+
+void AjoutLivre(){
+    do{
+        printf("ajout de livre %d\n", nmb + 1);
+
+        viderBuff();  // ← AJOUT ICI pour éviter de sauter l’auteur
+
+        printf("Auteur : ");
+        fgets(auteur[nmb], sizeof(auteur[nmb]), stdin);
+        auteur[nmb][strcspn(auteur[nmb], "\n")] = '\0';
+
+        printf("Titre : ");
+        fgets(Titre[nmb], sizeof(Titre[nmb]), stdin);
+        Titre[nmb][strcspn(Titre[nmb], "\n")] = '\0';
+
+        printf("quantite : ");
+        scanf("%d", &quantite[nmb]);
+        viderBuff();
+
+        printf("prix : ");
+        scanf("%d", &prix[nmb]);
+        viderBuff();
+
+        nmb++;
+
+        printf("Tu veux continuer l'ajout ? (0 = non, 1 = oui) : ");
+        scanf("%d", &stop);
+        viderBuff();
+        
+
+    } while (stop == 1 && nmb < 100);
+    if(stop==0)
+    AfficherLivre();
+}
+
+
 void ModifLivre(){
     char titre[10] ;
     float Quant;
@@ -64,7 +105,7 @@ void ModifLivre(){
         
         
             
-        }
+    }
         if(trouv==1){
             printf("bien modification");
             AfficherLivre(nmb);
@@ -93,20 +134,22 @@ void suppLivre(){
         if (strcmp(titre, Titre[i]) == 0) {
             
              printf("oui trouve \n");
-             
-             strcpy(Titre[i], Titre[i + 1]);
-            strcpy(auteur[i], auteur[i + 1]);
-              quantite[i]=quantite[i+1];
-              prix[i]=prix[i+1];
-              
+                
+                    strcpy(Titre[i], Titre[i + 1]);
+                    strcpy(auteur[i], auteur[i + 1]);
+                    quantite[i] = quantite[i + 1];
+                    prix[i] = prix[i + 1];
+            
+
+          
              nmb--;
              printf("bonne supp  Voila affichge apreés suppression");
-              AfficherLivre(nmb);
+              AfficherLivre();
         }else{
                  printf("non trouve");
         }
         
-}
+}}
 
  
  
@@ -115,18 +158,17 @@ void suppLivre(){
 
 
 
-}
+
 
 int main() {
     
     int choix;
     int nmb;
-   int nmb1;
-    //   printf("entrer nombre de livre:");
-    //         scanf("%d",&nmb1);
+  
        
     do{
-    printf("choisir le nombre que voud voulez \n 1\t pour ajouter \n 2\t AFFICHER \n 3tMODIFIER\n 4supprimer   ");
+    printf("choisir le nombre que voud voulez \n 1\t pour ajouter \n 2\t AFFICHER \n 3tMODIFIER\n4supprimer\n5 pourAfficherombr etottale de livre
+");
     scanf("%d",&nmb);
     
     switch (nmb) {
@@ -142,13 +184,19 @@ int main() {
     case 4:
         suppLivre();
         break;
+     case 5:
+        AffichernombreT();
+        break;
     default:
         printf(" ");
     }
-     printf("choisir nombre 1 pour repeter les operatins 0 pour stopper  ");
+     printf("choisir nombre 1 pour afficher menu 0 pour sortir  ");
     scanf("%d",&choix);
     }while(choix==1);
 
     
     return 0;
 }
+
+    
+  
