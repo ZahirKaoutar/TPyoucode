@@ -108,3 +108,41 @@ scanf("%s",name);
 
     return 0;
 }
+
+
+ #include <stdio.h>
+#include <string.h>
+int main(){
+int n;
+int cara;
+printf("entrer la taille de tab");
+scanf("%d",&n);
+printf("entrer la taille de caractere");
+scanf("%d",&cara);
+int plindr=0;
+//   if(n==cara){
+    char tab[n];
+ char name[cara];
+ printf("entrer le nom ");
+scanf("%s",name);
+    
+    for(int i=n;i>=0;i--){
+        tab[n-i]=name[i];
+    }
+     for(int j=0;j<n;j++){
+        if(tab[j]==name[j])
+       plindr= plindr+1;
+    }
+    if(plindr==n){
+        printf("oui");
+    }else{
+        printf("non");
+        
+    }
+    
+     
+//   }
+
+
+    return 0;}
+
