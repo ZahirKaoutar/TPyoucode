@@ -74,26 +74,59 @@ int main() {
 //   printf("nombre de voyelle en  chauine %d",count);
   
   
-//EXE3
-int n;
-int cara;
-printf("entrer la taille de tab");
-scanf("%d",&n);
-printf("entrer la taille de caractere");
-scanf("%d",&cara);
+////////////////////EXERICE3 PALINDROM 
+#include <string.h>
+int main(){
+    char c[50];
+    printf("entrer chain ");
+    fgets(c,sizeof(c),stdin);
+    int taille=strlen(c);
+    int i=0;
+    int palindrom=0;
+    int j=taille-1;
+    printf("%d",taille);
+    while(i<j){
+        if(c[i]=c[j]){
+            palindrom=1;
+        }
+        i++;
+        j--;
+    }
+    if(palindrom==1){
+        printf("palindrom");
+    }else{
+                printf("non palindrom");
+    }
+
+
+
+
+2eme methode;
+ 
+#include <stdio.h>
+#include <string.h>
+int main(){
+
+char name[100];
+char tab[100];
+
 int plindr=0;
-  if(n>cara){
-      char tab[n];
- char name[cara];
+
+  
  printf("entrer le nom ");
 scanf("%s",name);
+int size1=strlen(name);
     
-    for(int i=n;i>=0;i--){
-        tab[i]=name[i];
+    
+    for(int i=size1-1;i>=0;i--){
+        tab[size1-i-1]=name[i];
+        
     }
-     for(int j=0;j<n;j++){
+    
+     for(int j=0;j<size1-1;j++){
         if(tab[j]==name[j])
-        plindr=1;
+            plindr=1;
+        else  plindr=0;
     }
     if(plindr==1){
         printf("oui");
@@ -103,46 +136,71 @@ scanf("%s",name);
     }
     
      
-  }
 
 
-    return 0;
+   
+return 0;
+}
+////////////////////Exercice 5 : Implémentation de strlen
+#include <stdio.h>
+#include <string.h>
+int main(){
+
+char name[100];
+
+
+int count=0;
+int i=0;
+
+  
+ printf("entrer le nom ");
+scanf("%s",name);
+while(name[i]!='\0'){
+    count++;
+    i++;
+    
+}
+printf("la taille est %d",count);
+    
+   
+    
+     
+
+
+   
+return 0;
+}
+//////////////////Exercice 6 : Implémentation de strcpy
+#include <stdio.h>
+#include <string.h>
+int main(){
+
+char name1[100];
+char name2[100];
+
+
+
+
+  
+ printf("entrer le nom ");
+scanf("%s",name1);
+int size1=strlen(name1);
+for(int i=0;i<size1;i++){
+    name2[i]=name1[i];
+}
+printf("la deusieme copie %s",name2);
+    
+   
+    
+     
+
+
+   
+return 0;
 }
 
 
- #include <stdio.h>
-#include <string.h>
-int main(){
-int n;
-int cara;
-printf("entrer la taille de tab");
-scanf("%d",&n);
-printf("entrer la taille de caractere");
-scanf("%d",&cara);
-int plindr=0;
-//   if(n==cara){
-    char tab[n];
- char name[cara];
- printf("entrer le nom ");
-scanf("%s",name);
-    
-    for(int i=n;i>=0;i--){
-        tab[n-i]=name[i];
-    }
-     for(int j=0;j<n;j++){
-        if(tab[j]==name[j])
-       plindr= plindr+1;
-    }
-    if(plindr==n){
-        printf("oui");
-    }else{
-        printf("non");
-        
-    }
-    
-     
-//   }
+//////////////////////////Exercice 7 : Implémentation de strcat
 
 
-    return 0;}
 
