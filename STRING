@@ -201,6 +201,46 @@ return 0;
 
 
 //////////////////////////Exercice 7 : Implémentation de strcat
+{
+
+char name1[100];
+char name2[100];
+
+
+
+
+
+  
+ printf("entrer le nom ");
+fgets(name1,sizeof(name1),stdin);
+ printf("entrer le nom ");
+fgets(name2,sizeof(name2),stdin);
+int size1=strlen(name1);
+int size2=strlen(name2);
+int size3=size2+size1;
+printf("%d",size3);
+char name3[size3];
+
+
+for(int i=0;i<size1;i++){
+    name3[i]=name1[i];
+}
+printf("%s",name3);
+int j=0;
+for(int i=size2-1;i<size3;i++){
+    name3[i]=name2[j];
+    j++;
+}
+printf("troisieme %s",name3);
+    
+   
+    
+     
+
+
+   
+return 0;
+}
 
 
 
