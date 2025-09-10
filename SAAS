@@ -72,18 +72,33 @@ void Ajouterjoueur() {
 
             for (int i = 0; i < nmbjou; i++) {
                 Ajoutfois();
+
             }
         }
     } while (nmr < 100 && strcmp(choix, "stop") != 0);
 }
 
-void echangerJoueurs(int i, int j) {
-    struct Joueur temp;
-
-    temp = tab[i];
-    tab[i] = tab[j];
-    tab[j] = temp;
+void Affiche(struct Joueur arr[],int taille){
+    for(int i=0;i<nmr;i++){
+            printf("le nom %s\n",arr[i].nom);
+            printf("le numeroMaillot  %d\n",arr[i].numeroMaillot);
+             printf("le post %s\n",arr[i].poste);
+          
+            printf("  age%d\n",arr[i].age);
+             printf("le numeroMaillot  %d\n",arr[i].numeroMaillot);
+            printf("  buts%d",arr[i].buts);
+            
+    }
 }
+
+
+
+
+
+
+
+
+
 
 
 void trierParNom(struct Joueur arr[], int taille) {
@@ -97,6 +112,7 @@ void trierParNom(struct Joueur arr[], int taille) {
             }
         }
     }
+    Affiche(arr,taille);
 }
 
 
@@ -111,69 +127,69 @@ void trierParAge(struct Joueur arr[], int taille) {
             }
         }
     }
+    Affiche(arr,taille);
+}
+void Affichepost() {
+    struct Joueur group[100];
+    int countgrp=0;
+    int trouv=0;
+    for(int i=0;i<nmr-1;i++){
+        for(int j=i+1;j<nmr;j++){
+            if(strcmp(tab[i].poste,tab[j].poste)==0){
+                trouv=1;
+                 strcpy(group[countgrp].poste,tab[j].poste);
+                 
+                countgrp++;
+
+
+            }
+        }
+        
+
+    }
+    
+    if(trouv==1){
+        for(int i=0;i<countgrp;i++){
+            printf("les joueurs de role %s\n",group[i].poste);
+            printf("le nom %s\n",tab[i].nom);
+            printf("le numeroMaillot  %d\n",tab[i].numeroMaillot);
+             
+          
+            printf("  age%d\n",tab[i].age);
+             printf("le numeroMaillot  %d\n",tab[i].numeroMaillot);
+            printf("  buts%d",tab[i].buts);
+        }
+        
+                 
+            // Affiche(group,countgrp);        
+
+    }
+ 
 }
     
 void AfficherJoueur() {
-    // Pour éviter d'afficher plusieurs fois le même poste
-    char postesDéjàAffichés[4][20];
-    int nbPostesAffichés = 0;
+   int choixAff;
+    printf("entrer le nombre 1 si tu veux afficher par triage de nom\nLe nombre 2 si tu veux afficher par triage de age\nle nombre 1 si tu veux afficher par poste\n");
+    scanf("%d", &choixAff);
+    getchar();
+    switch(choixAff){
+        case 1:
+            trierParNom(tab, nmr);
+            break;
+        case 2:
+            trierParAge(tab, nmr);
+            break;
+        case 3:
+             Affichepost();
+            
+            break;
 
-    for (int i = 0; i < nmr; i++) {
-        int déjàAffiché = 0;
 
-        // Vérifie si ce poste a déjà été traité
-        for (int k = 0; k < nbPostesAffichés; k++) {
-            if (strcmp(tab[i].poste, postesDéjàAffichés[k]) == 0) {
-                déjàAffiché = 1;
-                break;
-            }
-        }
-
-        if (déjàAffiché) {
-            continue;
-        }
-
-        // Sinon, ajoute ce poste à la liste des postes déjà traités
-        strcpy(postesDéjàAffichés[nbPostesAffichés], tab[i].poste);
-        nbPostesAffichés++;
-
-        // Créer le groupe de joueurs du même poste
-        struct Joueur groupe[100];
-        int tailleGroupe = 0;
-
-        for (int j = 0; j < nmr; j++) {
-            if (strcmp(tab[j].poste, tab[i].poste) == 0) {
-                groupe[tailleGroupe++] = tab[j];
-            }
-        }
-
-        // Tri du groupe : d’abord par nom, puis âge si noms identiques
-        for (int a = 0; a < tailleGroupe - 1; a++) {
-            for (int b = a + 1; b < tailleGroupe; b++) {
-                if (strcmp(groupe[a].nom, groupe[b].nom) > 0 || 
-                    (strcmp(groupe[a].nom, groupe[b].nom) == 0 && groupe[a].age > groupe[b].age)) {
-                    struct Joueur temp = groupe[a];
-                    groupe[a] = groupe[b];
-                    groupe[b] = temp;
-                }
-            }
-        }
-
-        // Affichage
-        printf("\n--- Joueurs au poste de %s ---\n", tab[i].poste);
-        for (int x = 0; x < tailleGroupe; x++) {
-            printf("ID: %d\n", groupe[x].id);
-            printf("Nom: %s\n", groupe[x].nom);
-            printf("Poste: %s\n", groupe[x].poste);
-            printf("Numéro Maillot: %d\n", groupe[x].numeroMaillot);
-            printf("Buts: %d\n", groupe[x].buts);
-            printf("Âge: %d\n", groupe[x].age);
-            printf("-------------------------\n");
-        }
     }
+        
+      
 }
 
-         
  
    
  
@@ -192,22 +208,23 @@ int main() {
                 break;
             case 2:
                 AfficherJoueur();
-                printf("Fonction Afficherjoueur non encore implémentée.\n");
+                
                 break;
             case 3:
-                // Modifierjoueur(); // À implémenter
-                printf("Fonction Modifierjoueur non encore implémentée.\n");
+                // Affichepost();
+               
+                
                 break;
             case 4:
-                // Supprimerjoueur(); // À implémenter
-                printf("Fonction Supprimerjoueur non encore implémentée.\n");
+                
+                
                 break;
             case 5:
-                // Rechercher(); // À implémenter
-                printf("Fonction Rechercher non encore implémentée.\n");
+                
+               
                 break;
             default:
-                printf("Choix invalide.\n");
+               
         }
 
         printf("Choisir 1 pour afficher le menu, 0 pour sortir : ");
