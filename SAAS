@@ -240,7 +240,7 @@ void recherchnom(){
             scanf("%99s",searchnom);
             getchar();
             for(int i=0;i<nmr;i++){
-                if(strcmp(searchnom,tab[i].nom)){
+                if(strcmp(searchnom,tab[i].nom)==0){
                     trouv=1;
                     Affichefois(tab[i]);
                     break;
@@ -260,6 +260,7 @@ void recherchId(){
                 if(tab[i].id==id){
                     trouv=1;
                     Affichefois(tab[i]);
+                    break;
                 }
 
             }
