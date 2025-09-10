@@ -1,0 +1,178 @@
+#include <stdio.h>
+#include <string.h>
+
+struct Joueur {
+    int id;
+    char nom[100];
+    int numeroMaillot;
+    char poste[20];
+    int age;
+    int buts;
+};
+
+struct Joueur tab[100];
+
+int nmr = 0;  
+char roles[4][20] = {"gardiant", "défenseur", "milieu", "attaquant"};
+
+void Ajoutfois() {
+    char role[20];
+    printf("Entrer le nom: ");
+    scanf(" %[^\n]", tab[nmr].nom);
+
+    printf("Numéro Maillot: ");
+    scanf("%d", &tab[nmr].numeroMaillot);
+
+    printf("Age: ");
+    scanf("%d", &tab[nmr].age);
+
+    printf("Buts: ");
+    scanf("%d", &tab[nmr].buts);
+
+    printf("Entrer le rôle de joueur ('gardiant','défenseur', 'milieu','attaquant'): ");
+    scanf(" %[^\n]", role);
+
+    int valide = 0;
+    for (int i = 0; i < 4; i++) {
+        if (strcmp(role, roles[i]) == 0) {
+            valide = 1;
+            strcpy(tab[nmr].poste, role);
+            break;
+        }
+    }
+
+    if (!valide) {
+        printf("Erreur : il faut entrer un des rôles suivants : gardiant, défenseur, milieu, attaquant\n");
+        scanf(" %[^\n]", role);
+        return;
+    }
+
+    tab[nmr].id = nmr + 1;
+    nmr++;
+}
+
+void Ajouterjoueur() {
+    char choix[20];
+    int nmbjou;
+
+    do {
+        printf("Entrer choix (un / plusieurs / stop) : ");
+        scanf(" %19[^\n]", choix);
+
+        if (strcmp(choix, "un") == 0) {
+            Ajoutfois();
+        } else if (strcmp(choix, "plusieurs") == 0) {
+            printf("Combien de joueurs voulez-vous ajouter en une fois ? ");
+            scanf("%d", &nmbjou);
+
+            while (nmbjou <= 0 || nmbjou > 100 - nmr) {
+                printf("Le nombre doit être positif et <= %d : ", 100 - nmr);
+                scanf("%d", &nmbjou);
+            }
+
+            for (int i = 0; i < nmbjou; i++) {
+                Ajoutfois();
+            }
+        }
+    } while (nmr < 100 && strcmp(choix, "stop") != 0);
+}
+void Afficher(){
+    char temp[20];
+    for(int i=0;i<nmr-1;i++){
+         for(int j=i+1;j<nmr;j++){
+             if(strcmp(tab[i].nom,tab[j].nom)>0){
+                 strcpy(temp,tab[i].nom);
+                 strcpy(tab[i].nom,tab[j].nom);
+                 strcpy(tab[j].nom,temp);
+                 
+             }
+         }
+    }
+    //trie age
+    
+     for(int i=0;i<nmr-1;i++){
+         
+             if(tab[i].age>tab[i+1].age){
+                 strcpy(temp,tab[i].age);
+                 strcpy(tab[i].age,tab[i+1].nom);
+                 strcpy(tab[i+1].age,temp);
+                 
+             }
+         }
+    }
+     //par post
+     int j=0;
+    for(int i=0;i<nmr-1;i++){
+         
+             if(strcmp(tab[i].post,tab[j].post)==0){
+                  printf("nom: ")
+                    printf("%s\n",tab[i].nom);
+                    printf("poste: ")
+                    printf("%s\n",tab[i].poste);
+                    printf("numromaillot: ");
+                     printf("%d\n",tab[i].numeroMaillot);
+                     printf("Buts: ");
+                    printf("%s\n",tab[i].buts);
+                    printf("age: ");
+                    printf("%s\n",tab[i].age);
+                             
+                 
+             }
+         }
+    }
+    
+   
+    
+    // printf("affichage ");
+    // for(int i=0;i<nmr;i++){
+    //     printf("nom: ")
+    //     printf("%s\n",tab[i].nom);
+    //     printf("poste: ")
+    //     printf("%s\n",tab[i].poste);
+    //     printf("numromaillot: ");
+    //      printf("%d\n",tab[i].numeroMaillot);
+    //      printf("Buts: ");
+    //     printf("%s\n",tab[i].buts);
+    //     printf("age: ");
+    //     printf("%s\n",tab[i].age);
+    // }
+}
+int main() {
+    int choixMenu = 1;
+    int nmb;
+
+    do {
+        printf("Choisir le nombre que vous voulez:\n 1 pour ajouter\n 2 pour afficher\n 3 pour modifier\n 4 pour supprimer\n 5 pour rechercher\n");
+        scanf("%d", &nmb);
+
+        switch (nmb) {
+            case 1:
+                Ajouterjoueur();
+                break;
+            case 2:
+                // Afficherjoueur(); // À implémenter
+                printf("Fonction Afficherjoueur non encore implémentée.\n");
+                break;
+            case 3:
+                // Modifierjoueur(); // À implémenter
+                printf("Fonction Modifierjoueur non encore implémentée.\n");
+                break;
+            case 4:
+                // Supprimerjoueur(); // À implémenter
+                printf("Fonction Supprimerjoueur non encore implémentée.\n");
+                break;
+            case 5:
+                // Rechercher(); // À implémenter
+                printf("Fonction Rechercher non encore implémentée.\n");
+                break;
+            default:
+                printf("Choix invalide.\n");
+        }
+
+        printf("Choisir 1 pour afficher le menu, 0 pour sortir : ");
+        scanf("%d", &choixMenu);
+
+    } while (choixMenu == 1);
+
+    return 0;
+}
