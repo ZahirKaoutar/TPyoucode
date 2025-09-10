@@ -80,17 +80,30 @@ void Ajouterjoueur() {
 
 void Affiche(struct Joueur arr[],int taille){
     for(int i=0;i<nmr;i++){
+            printf("id  %d\n",arr[i].id);
             printf("le nom %s\n",arr[i].nom);
             printf("le numeroMaillot  %d\n",arr[i].numeroMaillot);
              printf("le post %s\n",arr[i].poste);
           
-            printf("  age%d\n",arr[i].age);
-             printf("le numeroMaillot  %d\n",arr[i].numeroMaillot);
-            printf("  buts%d",arr[i].buts);
+            printf("age %d\n",arr[i].age);
+             
+            printf("buts%d\n",arr[i].buts);
             
     }
 }
-
+void Affichefois(struct Joueur J){
+    
+            printf("id  %d\n",J.id);
+            printf("le nom %s\n",J.nom);
+            printf("le numeroMaillot  %d\n",J.numeroMaillot);
+             printf("le post %s\n",J.poste);
+          
+            printf("age %d\n",J.age);
+             
+            printf("buts%d\n",J.buts);
+            
+    
+}
 
 
 
@@ -137,28 +150,37 @@ void Affichepost() {
         for(int j=i+1;j<nmr;j++){
             if(strcmp(tab[i].poste,tab[j].poste)==0){
                 trouv=1;
-                 strcpy(group[countgrp].poste,tab[j].poste);
+                  group[countgrp] = tab[j];  
                  
                 countgrp++;
 
 
             }
+            
+            
+           
+
         }
+        
+       
         
 
     }
+
+   
     
     if(trouv==1){
         for(int i=0;i<countgrp;i++){
             printf("les joueurs de role %s\n",group[i].poste);
-            printf("le nom %s\n",tab[i].nom);
-            printf("le numeroMaillot  %d\n",tab[i].numeroMaillot);
+            printf("le nom %s\n",group[i].nom);
+            printf("le numeroMaillot  %d\n",group[i].numeroMaillot);
              
           
-            printf("  age%d\n",tab[i].age);
-             printf("le numeroMaillot  %d\n",tab[i].numeroMaillot);
-            printf("  buts%d",tab[i].buts);
+            printf("  age:%d\n",group[i].age);
+             printf("id  :%d\n",group[i].id);
+            printf("  buts%d",group[i].buts);
         }
+        
         
                  
             // Affiche(group,countgrp);        
@@ -169,7 +191,7 @@ void Affichepost() {
     
 void AfficherJoueur() {
    int choixAff;
-    printf("entrer le nombre 1 si tu veux afficher par triage de nom\nLe nombre 2 si tu veux afficher par triage de age\nle nombre 1 si tu veux afficher par poste\n");
+    printf("1  triage de nom\n2 triage de age\n3 Affiche poste \n");
     scanf("%d", &choixAff);
     getchar();
     switch(choixAff){
@@ -190,6 +212,81 @@ void AfficherJoueur() {
       
 }
 
+void supprime(){
+    int id;
+    do{
+         printf("  entrer id");
+            scanf("%d",&id);
+       
+            
+
+    }while(id<=0 || id>nmr+2);
+    for(int i=0;i<nmr;i++){
+        if(id==tab[i].id){
+            tab[i]=tab[i+1];
+        };
+        nmr--;
+    }
+    printf("bonne suppression\n");
+    Affiche(tab,nmr);
+
+
+}
+void recherchnom(){
+    char searchnom[20];
+    int trouv=0;
+     do{
+            printf("entrer le nom de search");
+            scanf("%99s",searchnom);
+            getchar();
+            for(int i=0;i<nmr;i++){
+                if(strcmp(searchnom,tab[i].nom)){
+                    trouv=1;
+                    Affichefois(tab[i]);
+                    break;
+                }
+
+            }
+           
+
+     }while(trouv!=1);}
+void recherchId(){
+    int trouv=0;
+    int id;
+     do{
+            printf("entrer le id");
+            scanf("%d",id);
+            for(int i=0;i<nmr;i++){
+                if(tab[i].id==id){
+                    trouv=1;
+                    Affichefois(tab[i]);
+                }
+
+            }
+            
+
+
+     }while(trouv!=1);
+
+}
+
+void Recherche(){
+    int choixsearch;
+    printf("1 recherch nom \n2recherche par id");
+    scanf("%d",&choixsearch);
+    getchar();
+    switch(choixsearch){
+        case 1:
+            recherchnom();
+            break;
+        case 2:
+            recherchId();
+            break;
+        default:
+            printf("");
+    }
+   
+}
  
    
  
@@ -199,7 +296,7 @@ int main() {
     int nmb;
 
     do {
-        printf("Choisir le nombre que vous voulez:\n 1 pour ajouter\n 2 pour afficher\n 3 pour modifier\n 4 pour supprimer\n 5 pour rechercher\n");
+        printf("Choisir le nombre que vous voulez:\n 1 pour ajouter\n 2 pour afficher\n 3 pour Suppression\n 4 pour search\n 5 pour rechercher\n");
         scanf("%d", &nmb);
 
         switch (nmb) {
@@ -211,19 +308,19 @@ int main() {
                 
                 break;
             case 3:
-                // Affichepost();
+                supprime();
                
                 
                 break;
             case 4:
-                
-                
+                Recherche();
                 break;
             case 5:
                 
                
                 break;
             default:
+            printf(" ");
                
         }
 
