@@ -78,19 +78,7 @@ void Ajouterjoueur() {
     } while (nmr < 100 && strcmp(choix, "stop") != 0);
 }
 
-void Affiche(struct Joueur arr[],int taille){
-    for(int i=0;i<nmr;i++){
-            printf("id  %d\n",arr[i].id);
-            printf("le nom %s\n",arr[i].nom);
-            printf("le numeroMaillot  %d\n",arr[i].numeroMaillot);
-             printf("le post %s\n",arr[i].poste);
-          
-            printf("age %d\n",arr[i].age);
-             
-            printf("buts%d\n",arr[i].buts);
-            
-    }
-}
+
 void Affichefois(struct Joueur J){
     
             printf("id  %d\n",J.id);
@@ -114,80 +102,143 @@ void Affichefois(struct Joueur J){
 
 
 
-void trierParNom(struct Joueur arr[], int taille) {
+void trierParNom() {
     struct Joueur temp;
-    for (int i = 0; i < taille - 1; i++) {
-        for (int j = i + 1; j < taille; j++) {
-            if (strcmp(arr[i].nom, arr[j].nom) > 0) {
-                temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
+    for (int i = 0; i < nmr - 1; i++) {
+        for (int j = i + 1; j < nmr; j++) {
+            if (strcmp(tab[i].nom, tab[j].nom) > 0) {
+                temp = tab[i];
+                tab[i] = tab[j];
+                tab[j] = temp;
             }
         }
     }
-    Affiche(arr,taille);
+    
+    for(int i=0;i<nmr;i++){
+        Affichefois(tab[i]);
+    }
 }
 
 
-void trierParAge(struct Joueur arr[], int taille) {
+void trierParAge() {
     struct Joueur temp;
-    for (int i = 0; i < taille - 1; i++) {
-        for (int j = i + 1; j < taille; j++) {
-            if (arr[i].age > arr[j].age) {
-                temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
+    for (int i = 0; i < nmr - 1; i++) {
+        for (int j = i + 1; j < nmr; j++) {
+            if (tab[i].age > tab[j].age) {
+                temp = tab[i];
+                tab[i] = tab[j];
+                tab[j] = temp;
             }
         }
     }
-    Affiche(arr,taille);
+     for(int i=0;i<nmr;i++){
+        Affichefois(tab[i]);
+    }
 }
-void Affichepost() {
-    struct Joueur group[100];
-    int countgrp=0;
-    int trouv=0;
-    for(int i=0;i<nmr-1;i++){
-        for(int j=i+1;j<nmr;j++){
-            if(strcmp(tab[i].poste,tab[j].poste)==0){
-                trouv=1;
-                  group[countgrp] = tab[j];  
+// void Affichepost() {
+//     struct Joueur group[100];
+//     int countgrp=0;
+//     int trouv=0;
+//     for(int i=0;i<nmr-1;i++){
+//         for(int j=i+1;j<nmr;j++){
+//             if(strcmp(tab[i].poste,tab[j].poste)==0){
+//                 trouv=1;
+//                   group[countgrp] = tab[j];  
                  
-                countgrp++;
+//                 countgrp++;
 
 
-            }
+//             }
             
-            
-           
-
-        }
+//         }
         
-       
-        
-
-    }
-
+//     }
+    
    
     
-    if(trouv==1){
-        for(int i=0;i<countgrp;i++){
-            printf("les joueurs de role %s\n",group[i].poste);
-            printf("le nom %s\n",group[i].nom);
-            printf("le numeroMaillot  %d\n",group[i].numeroMaillot);
-             
-          
-            printf("  age:%d\n",group[i].age);
-             printf("id  :%d\n",group[i].id);
-            printf("  buts%d",group[i].buts);
-        }
+//     if(trouv==1){
         
-        
-                 
-            // Affiche(group,countgrp);        
+//         for(int i=0;i<countgrp;i++){
+//             Affichefois(group[i]);
+//         }
 
+//     }
+//         for(int i=0;i<nmr;i++){  
+//             for(int j=0;j<countgrp;j++){
+//                 if(strcmp(tab[i].poste,group[j].poste)==0){
+//                   trouv=1;
+//                   break;
+//                 }
+        
+//                 if(!trouv){
+//                     printf("ce role trouve une seul fois %s",tab[i].poste);
+//                 Affichefois(tab[i])
+//                 }
+//             }
+//         }    
+// }
+void Affichepost() {
+//     int roleCount[4] = {0}; 
+//     int i, j;
+
+   
+//     for (i = 0; i < nmr; i++) {
+//         for (j = 0; j < 4; j++) {
+//             if (strcmp(tab[i].poste, roles[j]) == 0) {
+//                 roleCount[j]++;
+//                 break;
+//             }
+//         }
+//     }
+
+//   for (j = 0; j < 4; j++) {
+//     printf("\n le rôle '%s' (apparu %d fois) :\n", roles[j], roleCount[j]);
+//     for (i = 0; i < nmr; i++) {
+//         if (strcmp(tab[i].poste, roles[j]) == 0) {
+//             Affichefois(tab[i]);
+//         }
+//     }
+// }
+
+
+
+
+ struct Joueur temp;
+    for (int i = 0; i < nmr - 1; i++) {
+        for (int j = i + 1; j < nmr; j++) {
+            if (strcmp(tab[i].poste, tab[j].poste) > 0) {
+                temp = tab[i];
+                tab[i] = tab[j];
+                tab[j] = temp;
+            }
+        }
     }
- 
+    int inexdeb=0;
+    int count=1;
+    for(int i=0;i<nmr-1;i++){
+        if(strcmp(tab[i].poste, tab[i+1].poste)==0){
+            count++;
+            
+        }else{
+            printf("le role %s trouve %d ",tab[i].poste,count);
+            for(int j=inexdeb;j<=i;j++){
+                Affichefois(tab[j]);
+            }
+            count=1;
+            inexdeb=i+1;
+            
+        }
+    }
+    //pour dernier poste car table il stop à avant  nmr-1
+    printf("\nLe rôle '%s' est trouvé %d fois :\n", tab[nmr - 1].poste, count);
+        for (int j = inexdeb; j < nmr; j++) {
+            Affichefois(tab[j]);
+        }
+
+
+
 }
+
     
 void AfficherJoueur() {
    int choixAff;
@@ -196,10 +247,10 @@ void AfficherJoueur() {
     getchar();
     switch(choixAff){
         case 1:
-            trierParNom(tab, nmr);
+            trierParNom();
             break;
         case 2:
-            trierParAge(tab, nmr);
+            trierParAge();
             break;
         case 3:
              Affichepost();
@@ -228,7 +279,8 @@ void supprime(){
         nmr--;
     }
     printf("bonne suppression\n");
-    Affiche(tab,nmr);
+    for(int i=0;i<nmr;i++)
+        Affichefois(tab[i]);
 
 
 }
@@ -243,7 +295,7 @@ void recherchnom(){
                 if(strcmp(searchnom,tab[i].nom)==0){
                     trouv=1;
                     Affichefois(tab[i]);
-                    break;
+                    
                 }
 
             }
@@ -255,7 +307,7 @@ void recherchId(){
     int id;
      do{
             printf("entrer le id");
-            scanf("%d",id);
+            scanf("%d",&id);
             for(int i=0;i<nmr;i++){
                 if(tab[i].id==id){
                     trouv=1;
