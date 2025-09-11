@@ -421,6 +421,7 @@ void modage(){
                         
       
 }
+ 
 void modbuts(){
    int nvlbuts;
    int pos=recherchId();
@@ -459,6 +460,115 @@ void Modifier(){
     }
     
 }
+
+
+void AffichenmbTotal(){
+    printf("le nombre totale de  joueur%d\n",nmr);
+
+ }
+void AfficherAgemoyen(){
+   int s=0;
+   int moyen;
+
+   for(int i=0;i<nmr;i++){
+        s=s+tab[i].age;
+
+   }
+   moyen=s/nmr;
+   printf("la moyen des ages est:%d\n",moyen);
+
+ } 
+void  AfficheplusButs(){
+    int entrebut;
+    
+    printf("entrer le nombre but");
+    scanf("%d",&entrebut);
+   
+    for(int i=0;i<nmr;i++){
+        if(entrebut>tab[i].buts){
+            printf("il n'a pas de joueur marqueé plus de ce but ");
+        }
+        else{
+            printf("voilà les joueurs qui ont  marqué plus  à de  le but entrer ");
+            Affichefois(tab[i]);
+        }
+
+    }
+    
+}
+void Affichemeilleurbuteur(){
+    int maxbut;
+    int pos;
+    maxbut=tab[0].buts;
+    for(int i=0;i<nmr;i++){
+        if(maxbut<tab[i].buts){
+            maxbut=tab[i].buts;
+            pos=i;
+
+        }
+    }
+    printf("le meuilleur buteur\n");
+    Affichefois(tab[pos]);
+    
+}
+void AfficeheAgéJeune(){
+    int Agé;
+    int jeuné;
+    int pos;
+    Agé = tab[0].age;
+    jeuné = tab[0].age;
+
+    for(int i=0;i<nmr;i++){
+        if(tab[i].age>Agé){
+            Agé=tab[i].age;
+            pos=i;
+            
+            
+        }
+
+        
+    }
+     printf("le   le plus agé de joueur:\n");
+    Affichefois(tab[pos]);
+
+    for(int j=0;j<nmr;j++){
+        if(tab[j].age<jeuné){
+            Agé=tab[j].age;
+            pos=j;
+            
+            
+        }
+        
+    }
+    printf("le plus  le plus jeune de joueur:\n");
+    Affichefois(tab[pos]);
+}
+
+void AfficheStatique(){
+    int nmb;
+    do{
+        printf("1 pour afficher le nombre total de joueurs \n2 pour afficher age moyen joueurs\n3 les joueurs ayant marqué\n4le meilleur buteur /n");
+        scanf("%d",nmb);
+        switch(nmb){
+            case 1:
+                AffichenmbTotal();
+            case 2:
+                AfficherAgemoyen();
+            case 3:
+                AfficheplusButs();
+            case 4:
+                Affichemeilleurbuteur();
+            case 5:
+                AfficeheAgéJeune();
+           
+
+        }
+
+    }while(nmb!=1||nmb!=2||nmb!=3);
+    
+    
+
+}
  
    
  
@@ -468,7 +578,7 @@ int main() {
     int nmb;
 
     do {
-        printf("Choisir le nombre que vous voulez:\n 1 pour ajouter\n 2 pour afficher\n 3 pour Suppression\n 4 pour search\n 5 pour rechercher\n");
+        printf("Choisir le nombre que vous voulez:\n 1 pour ajouter\n 2 pour afficher\n 3 pour Suppression\n 4 pour Rechercher\n 5 pour modifier\n 6 Satatistiques");
         scanf("%d", &nmb);
 
         switch (nmb) {
@@ -489,6 +599,10 @@ int main() {
                 break;
             case 5:
                 Modifier();
+               
+                break;
+            case 6:
+                AfficheStatique();
                
                 break;
             default:
