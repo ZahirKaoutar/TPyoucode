@@ -262,46 +262,6 @@ void AfficherJoueur() {
         
       
 }
-
-void supprime(){
-    int id;
-    do{
-         printf("  entrer id");
-            scanf("%d",&id);
-       
-            
-
-    }while(id<=0 || id>nmr+2);
-    for(int i=0;i<nmr;i++){
-        if(id==tab[i].id){
-            tab[i]=tab[i+1];
-        };
-        nmr--;
-    }
-    printf("bonne suppression\n");
-    for(int i=0;i<nmr;i++)
-        Affichefois(tab[i]);
-
-
-}
-void recherchnom(){
-    char searchnom[20];
-    int trouv=0;
-     do{
-            printf("entrer le nom de search");
-            scanf("%99s",searchnom);
-            getchar();
-            for(int i=0;i<nmr;i++){
-                if(strcmp(searchnom,tab[i].nom)==0){
-                    trouv=1;
-                    Affichefois(tab[i]);
-                    
-                }
-
-            }
-           
-
-     }while(trouv!=1);}
 void recherchId(){
     int trouv=0;
     int id;
@@ -323,6 +283,36 @@ void recherchId(){
 
 }
 
+void supprime(){
+    recherchId();
+    printf("bonne suppression\n");
+    for(int i=0;i<nmr;i++)
+        Affichefois(tab[i]);
+
+
+}
+void recherchnom(){
+    char searchnom[20];
+    int trouv=0;
+    struct Joueurj;
+     do{
+            printf("entrer le nom de search");
+            scanf("%99s",searchnom);
+            getchar();
+            for(int i=0;i<nmr;i++){
+                if(strcmp(searchnom,tab[i].nom)==0){
+                    trouv=1;
+                      j=Affichefois(tab[i]);
+                    
+                }
+
+            }
+            return j;
+           
+
+     }while(trouv!=1);}
+
+
 void Recherche(){
     int choixsearch;
     printf("1 recherch nom \n2recherche par id");
@@ -339,6 +329,61 @@ void Recherche(){
             printf("");
     }
    
+}
+
+
+void modpost(){
+    char nvlpost[20];
+      struct Joueur j=recherchnom();
+      printf("entrer la nouvelle valeur  post");
+        scanf("%s",nvlpost);
+         strcpy(j.poste,nvlpost);
+         Affichefois(Joueur j);
+                        
+      
+}
+
+    
+void modage(){
+   int nvlage;
+      struct Joueur j=recherchnom();
+      printf("entrer la nouvelle valeur  age");
+        scanf("%d",nvlage);
+         strcpy(j.poste,nvlage);
+         Affichefois(Joueur j);
+                        
+      
+}
+void modbuts(){
+   int nvlbuts;
+      struct Joueur j=recherchnom();
+      printf("entrer la nouvelle valeur  buts");
+        scanf("%d",nvlbuts);
+         strcpy(j.poste,nvlage);
+         Affichefois(Joueur j);
+                        
+      
+}
+  
+void Modifier(){
+    int choixMod;
+    printf("1 modifier post \n2 modifier par buts\n3 modifier  age");
+    scanf("%d",&choixMod);
+    getchar();
+    switch(choixMod){
+        case 1:
+            modchpost();
+            break;
+        case 2:
+            modbuts();
+            break;
+        case 2:
+            modage();
+            break;
+        default:
+            printf("");
+    }
+    
 }
  
    
@@ -369,6 +414,7 @@ int main() {
                 Recherche();
                 break;
             case 5:
+                Modifier();
                 
                
                 break;
