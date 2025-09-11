@@ -17,9 +17,10 @@ struct Joueur tab[] = {
     {1, "wafi", 24, "defenseur", 19, 20},
     {2, "John",27, "attaquant", 16, 34},
     {3, "amali",27, "milieu", 16, 34},
+    {4, "wafi", 28, "defenseur", 9, 20}
 };
 
-int nmr = 3, id = 3;  
+int nmr = 4, id = 3;  
 char roles[4][20] = {"gardiant", "defenseur", "milieu", "attaquant"};
 
 void Ajoutfois() {
@@ -265,7 +266,7 @@ int recherchnom() {
 
     do {
         printf("Entrer le nom à rechercher : ");
-        scanf("%99s", searchnom);
+        scanf("%s", searchnom);
         getchar(); 
 
         for (int i = 0; i < nmr; i++) {
@@ -273,9 +274,9 @@ int recherchnom() {
                 trouv = 1;
                 pos = i;
                 Affichefois(tab[i]); 
-                break;
             }
         }
+        printf("i'm here");
 
         if (!trouv) {
             printf("Joueur non trouvé, veuillez réessayer.\n");
