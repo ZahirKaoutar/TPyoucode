@@ -79,7 +79,7 @@ void Ajouterjoueur() {
 }
 
 
-void Affichefois(struct Joueur J){
+struct  Joueur Affichefois(struct Joueur J){
     
             printf("id  %d\n",J.id);
             printf("le nom %s\n",J.nom);
@@ -89,6 +89,8 @@ void Affichefois(struct Joueur J){
             printf("age %d\n",J.age);
              
             printf("buts%d\n",J.buts);
+            return J;
+
             
     
 }
@@ -135,73 +137,8 @@ void trierParAge() {
         Affichefois(tab[i]);
     }
 }
-// void Affichepost() {
-//     struct Joueur group[100];
-//     int countgrp=0;
-//     int trouv=0;
-//     for(int i=0;i<nmr-1;i++){
-//         for(int j=i+1;j<nmr;j++){
-//             if(strcmp(tab[i].poste,tab[j].poste)==0){
-//                 trouv=1;
-//                   group[countgrp] = tab[j];  
-                 
-//                 countgrp++;
 
-
-//             }
-            
-//         }
-        
-//     }
-    
-   
-    
-//     if(trouv==1){
-        
-//         for(int i=0;i<countgrp;i++){
-//             Affichefois(group[i]);
-//         }
-
-//     }
-//         for(int i=0;i<nmr;i++){  
-//             for(int j=0;j<countgrp;j++){
-//                 if(strcmp(tab[i].poste,group[j].poste)==0){
-//                   trouv=1;
-//                   break;
-//                 }
-        
-//                 if(!trouv){
-//                     printf("ce role trouve une seul fois %s",tab[i].poste);
-//                 Affichefois(tab[i])
-//                 }
-//             }
-//         }    
-// }
 void Affichepost() {
-//     int roleCount[4] = {0}; 
-//     int i, j;
-
-   
-//     for (i = 0; i < nmr; i++) {
-//         for (j = 0; j < 4; j++) {
-//             if (strcmp(tab[i].poste, roles[j]) == 0) {
-//                 roleCount[j]++;
-//                 break;
-//             }
-//         }
-//     }
-
-//   for (j = 0; j < 4; j++) {
-//     printf("\n le rôle '%s' (apparu %d fois) :\n", roles[j], roleCount[j]);
-//     for (i = 0; i < nmr; i++) {
-//         if (strcmp(tab[i].poste, roles[j]) == 0) {
-//             Affichefois(tab[i]);
-//         }
-//     }
-// }
-
-
-
 
  struct Joueur temp;
     for (int i = 0; i < nmr - 1; i++) {
@@ -213,27 +150,31 @@ void Affichepost() {
             }
         }
     }
-    int inexdeb=0;
-    int count=1;
-    for(int i=0;i<nmr-1;i++){
-        if(strcmp(tab[i].poste, tab[i+1].poste)==0){
-            count++;
-            
-        }else{
-            printf("le role %s trouve %d ",tab[i].poste,count);
-            for(int j=inexdeb;j<=i;j++){
-                Affichefois(tab[j]);
-            }
-            count=1;
-            inexdeb=i+1;
-            
-        }
+     for(int i=0;i<nmr;i++){
+       
+        Affichefois(tab[i]);
     }
-    //pour dernier poste car table il stop à avant  nmr-1
-    printf("\nLe rôle '%s' est trouvé %d fois :\n", tab[nmr - 1].poste, count);
-        for (int j = inexdeb; j < nmr; j++) {
-            Affichefois(tab[j]);
-        }
+    // int inexdeb=0;
+    // int count=1;
+    // for(int i=0;i<nmr-1;i++){
+    //     if(strcmp(tab[i].poste, tab[i+1].poste)==0){
+    //         count++;
+            
+    //     }else{
+    //         printf("le role %s trouve %d ",tab[i].poste,count);
+    //         for(int j=inexdeb;j<=i;j++){
+    //             Affichefois(tab[j]);
+    //         }
+    //         count=1;
+    //         inexdeb=i+1;
+            
+    //     }
+    // }
+    // //pour dernier poste car table il stop à avant  nmr-1
+    // printf("\nLe rôle '%s' est trouvé %d fois :\n", tab[nmr - 1].poste, count);
+    //     for (int j = inexdeb; j < nmr; j++) {
+    //         Affichefois(tab[j]);
+    //     }
 
 
 
@@ -291,10 +232,10 @@ void supprime(){
 
 
 }
-void recherchnom(){
+struct Joueur recherchnom(){
     char searchnom[20];
     int trouv=0;
-    struct Joueurj;
+    struct Joueur j;
      do{
             printf("entrer le nom de search");
             scanf("%99s",searchnom);
@@ -302,7 +243,7 @@ void recherchnom(){
             for(int i=0;i<nmr;i++){
                 if(strcmp(searchnom,tab[i].nom)==0){
                     trouv=1;
-                      j=Affichefois(tab[i]);
+                      j = Affichefois(tab[i]);
                     
                 }
 
@@ -338,7 +279,7 @@ void modpost(){
       printf("entrer la nouvelle valeur  post");
         scanf("%s",nvlpost);
          strcpy(j.poste,nvlpost);
-         Affichefois(Joueur j);
+         Affichefois(j);
                         
       
 }
@@ -349,8 +290,8 @@ void modage(){
       struct Joueur j=recherchnom();
       printf("entrer la nouvelle valeur  age");
         scanf("%d",nvlage);
-         strcpy(j.poste,nvlage);
-         Affichefois(Joueur j);
+        j.age=nvlage;
+         Affichefois(j);
                         
       
 }
@@ -359,8 +300,8 @@ void modbuts(){
       struct Joueur j=recherchnom();
       printf("entrer la nouvelle valeur  buts");
         scanf("%d",nvlbuts);
-         strcpy(j.poste,nvlage);
-         Affichefois(Joueur j);
+         j.buts=nvlbuts;
+         Affichefois(j);
                         
       
 }
@@ -372,12 +313,12 @@ void Modifier(){
     getchar();
     switch(choixMod){
         case 1:
-            modchpost();
+            modpost();
             break;
         case 2:
             modbuts();
             break;
-        case 2:
+        case 3:
             modage();
             break;
         default:
