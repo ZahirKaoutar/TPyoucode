@@ -4,6 +4,7 @@
 struct Joueur {
     int id;
     char nom[100];
+    
     int numeroMaillot;
     char poste[20];
     int age;
@@ -14,29 +15,37 @@ struct Joueur tab[100];
 
 struct Joueur tab[] = {
     {1, "wafi", 24, "defenseur", 19, 20},
-    {2, "John", 27, "attaquant", 16, 34},
-    {3, "amali", 27, "milieu", 16, 34},
+    {2, "John",27, "attaquant", 16, 34},
+    {3, "amali",27, "milieu", 16, 34},
 };
 
-int nmr = 3;  
+int nmr = 3, id = 3;  
 char roles[4][20] = {"gardiant", "defenseur", "milieu", "attaquant"};
 
 void Ajoutfois() {
     char role[20];
     printf("Entrer le nom: ");
-    scanf(" %[^\n]", tab[nmr].nom);
+    // scanf(" %[^\n]", tab[nmr].nom);
+    scanf(" %s", tab[nmr].nom);
+    getchar();
 
     printf("Numéro Maillot: ");
     scanf("%d", &tab[nmr].numeroMaillot);
+    getchar();
 
     printf("Age: ");
     scanf("%d", &tab[nmr].age);
+    getchar();
+    
 
     printf("Buts: ");
     scanf("%d", &tab[nmr].buts);
+    getchar();
 
     printf("Entrer le rôle de joueur ('gardiant','défenseur', 'milieu','attaquant'): ");
-    scanf(" %[^\n]", role);
+    // scanf(" %[^\n]", role);
+     scanf("%s",role);
+        getchar();
 
     int valide = 0;
     for (int i = 0; i < 4; i++) {
@@ -55,7 +64,8 @@ void Ajoutfois() {
         return;
     }
 
-    tab[nmr].id = nmr + 1;
+    tab[nmr].id = id + 1;
+    id++;
     nmr++;
 }
 
@@ -65,17 +75,21 @@ void Ajouterjoueur() {
 
     do {
         printf("Entrer choix (un / plusieurs / stop) : ");
-        scanf(" %19[^\n]", choix);
+        // scanf(" %19[^\n]", choix);
+        scanf("%s",choix);
+        getchar();
 
         if (stricmp(choix, "un") == 0) {
             Ajoutfois();
         } else if (stricmp(choix, "plusieurs") == 0) {
             printf("Combien de joueurs voulez-vous ajouter en une fois ? ");
             scanf("%d", &nmbjou);
+            getchar();
 
             while (nmbjou <= 0 || nmbjou > 100 - nmr) {
                 printf("Le nombre doit être positif et <= %d : ", 100 - nmr);
                 scanf("%d", &nmbjou);
+                    getchar();
             }
 
             for (int i = 0; i < nmbjou; i++) {
@@ -279,6 +293,7 @@ void Recherche(){
     printf("1 recherch nom \n2recherche par id");
     scanf("%d",&choixsearch);
     getchar();
+   
     switch(choixsearch){
         case 1:
             recherchnom();
@@ -398,20 +413,26 @@ void AfficherAgemoyen(){
  } 
 void AfficheplusButs(){
     int entrebut;
+    int trouv=0;
     
     printf("entrer le nombre but");
     scanf("%d",&entrebut);
    
     for(int i=0;i<nmr;i++){
-        if(entrebut>tab[i].buts){
-            printf("il n'a pas de joueur marqueé plus de ce but ");
-        }
-        else{
-            printf("voilà les joueurs qui ont  marqué plus  à de  le but entrer ");
+        if(entrebut<tab[i].buts){
+            printf("===================================================");
+            
             Affichefois(tab[i]);
+            trouv++;
             printf("===================================================");
         }
+    
+        
 
+    }
+    if(trouv==0){
+        
+              printf("il n'a pas de joueur marqueé plus de ce but ");
     }
     
 }
@@ -492,7 +513,7 @@ void AfficheStatique(){
          printf("Choisir 1 pour afficher le menu de statique, 0 pour sortir : ");
         scanf("%d",&choixMenu);
     
-    }while(nmb!=1||nmb!=2||nmb!=3&&choixMenu==1);
+    }while(nmb!=1||nmb!=2||nmb!=3);
     
     
 
