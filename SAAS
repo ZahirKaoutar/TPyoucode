@@ -12,8 +12,14 @@ struct Joueur {
 
 struct Joueur tab[100];
 
-int nmr = 0;  
-char roles[4][20] = {"gardiant", "défenseur", "milieu", "attaquant"};
+struct Joueur tab[] = {
+    {1, "wafi", 24, "defenseur", 19, 20},
+    {2, "John", 27, "attaquant", 16, 34},
+    {3, "amali", 27, "milieu", 16, 34},
+};
+
+int nmr = 3;  
+char roles[4][20] = {"gardiant", "defenseur", "milieu", "attaquant"};
 
 void Ajoutfois() {
     char role[20];
@@ -34,7 +40,7 @@ void Ajoutfois() {
 
     int valide = 0;
     for (int i = 0; i < 4; i++) {
-        if (strcmp(role, roles[i]) == 0) {
+        if (stricmp(role, roles[i]) == 0) {
             valide = 1;
             strcpy(tab[nmr].poste, role);
             break;
@@ -43,7 +49,9 @@ void Ajoutfois() {
 
     if (!valide) {
         printf("Erreur : il faut entrer un des rôles suivants : gardiant, défenseur, milieu, attaquant\n");
-        scanf(" %[^\n]", role);
+        // scanf(" %[^\n]", role);
+        scanf("%s",role);
+        getchar();
         return;
     }
 
@@ -59,9 +67,9 @@ void Ajouterjoueur() {
         printf("Entrer choix (un / plusieurs / stop) : ");
         scanf(" %19[^\n]", choix);
 
-        if (strcmp(choix, "un") == 0) {
+        if (stricmp(choix, "un") == 0) {
             Ajoutfois();
-        } else if (strcmp(choix, "plusieurs") == 0) {
+        } else if (stricmp(choix, "plusieurs") == 0) {
             printf("Combien de joueurs voulez-vous ajouter en une fois ? ");
             scanf("%d", &nmbjou);
 
@@ -75,7 +83,7 @@ void Ajouterjoueur() {
 
             }
         }
-    } while (nmr < 100 && strcmp(choix, "stop") != 0);
+    } while (nmr < 100 && stricmp(choix, "stop") != 0);
 }
 
 
@@ -89,6 +97,7 @@ struct  Joueur Affichefois(struct Joueur J){
             printf("age %d\n",J.age);
              
             printf("buts%d\n",J.buts);
+            printf("=====================================================\n");
             return J;
 
             
@@ -108,7 +117,7 @@ void trierParNom() {
     struct Joueur temp;
     for (int i = 0; i < nmr - 1; i++) {
         for (int j = i + 1; j < nmr; j++) {
-            if (strcmp(tab[i].nom, tab[j].nom) > 0) {
+            if (stricmp(tab[i].nom, tab[j].nom) > 0) {
                 temp = tab[i];
                 tab[i] = tab[j];
                 tab[j] = temp;
@@ -138,49 +147,32 @@ void trierParAge() {
     }
 }
 
-void Affichepost() {
 
- struct Joueur temp;
-    for (int i = 0; i < nmr - 1; i++) {
-        for (int j = i + 1; j < nmr; j++) {
-            if (strcmp(tab[i].poste, tab[j].poste) > 0) {
-                temp = tab[i];
-                tab[i] = tab[j];
-                tab[j] = temp;
+
+void Affichepost(){
+   
+   
+    int trouv;
+    for(int j=0; j<4; j++){
+        printf("%s :\n", roles[j]);
+            trouv = 0;
+
+        for(int i=0; i<nmr; i++){
+            if(stricmp(tab[i].poste,roles[j]) == 0){
+                Affichefois(tab[i]);
+                trouv = 1;
             }
         }
-    }
-     for(int i=0;i<nmr;i++){
-       
-        Affichefois(tab[i]);
-    }
-    // int inexdeb=0;
-    // int count=1;
-    // for(int i=0;i<nmr-1;i++){
-    //     if(strcmp(tab[i].poste, tab[i+1].poste)==0){
-    //         count++;
-            
-    //     }else{
-    //         printf("le role %s trouve %d ",tab[i].poste,count);
-    //         for(int j=inexdeb;j<=i;j++){
-    //             Affichefois(tab[j]);
-    //         }
-    //         count=1;
-    //         inexdeb=i+1;
-            
-    //     }
-    // }
-    // //pour dernier poste car table il stop à avant  nmr-1
-    // printf("\nLe rôle '%s' est trouvé %d fois :\n", tab[nmr - 1].poste, count);
-    //     for (int j = inexdeb; j < nmr; j++) {
-    //         Affichefois(tab[j]);
-    //     }
 
+        if(trouv==0){
+            printf(" Aucun joueur dans ce poste.\n");
+        }
 
-
+        printf("\n"); 
+ 
+     }
 }
-
-    
+  
 void AfficherJoueur() {
    int choixAff;
     printf("1  triage de nom\n2 triage de age\n3 Affiche poste \n");
@@ -203,55 +195,83 @@ void AfficherJoueur() {
         
       
 }
-void recherchId(){
-    int trouv=0;
-    int id;
-     do{
-            printf("entrer le id");
-            scanf("%d",&id);
-            for(int i=0;i<nmr;i++){
-                if(tab[i].id==id){
-                    trouv=1;
-                    Affichefois(tab[i]);
-                    break;
-                }
 
+
+
+int recherchId(){
+    int idsearch;
+    int trouv = 0;
+    int pos = -1;
+
+    do {
+        printf("Entrer le id à rechercher : ");
+        scanf("%d", &idsearch);
+       
+
+        for (int i = 0; i < nmr; i++) {
+            if  (tab[i].id==idsearch) {
+                trouv = 1;
+                pos = i;
+                printf("voila les infos de joueur\n");
+               Affichefois(tab[i]);  
+                break;
             }
-            
+        }
 
+        if (!trouv) {
+            printf("Joueur non trouvé, veuillez réessayer.\n");
+        }
 
-     }while(trouv!=1);
+    } while (!trouv);
 
+    return pos;
 }
 
 void supprime(){
-    recherchId();
-    printf("bonne suppression\n");
-    for(int i=0;i<nmr;i++)
-        Affichefois(tab[i]);
+   int pos= recherchId();
+   for(int i=pos;i<nmr;i++){
+        tab[i]=tab[i+1];
+       
+   }
+    nmr--;
+   
+    printf("bonne suppression LALISTE à pres suppression\n");
+   for(int i=0;i<nmr;i++){
+     Affichefois(tab[i]);
+  }
+        
 
 
 }
-struct Joueur recherchnom(){
-    char searchnom[20];
-    int trouv=0;
-    struct Joueur j;
-     do{
-            printf("entrer le nom de search");
-            scanf("%99s",searchnom);
-            getchar();
-            for(int i=0;i<nmr;i++){
-                if(strcmp(searchnom,tab[i].nom)==0){
-                    trouv=1;
-                      j = Affichefois(tab[i]);
-                    
-                }
 
+int recherchnom() {
+    char searchnom[100];
+    int trouv = 0;
+    int pos = -1;
+
+    do {
+        printf("Entrer le nom à rechercher : ");
+        scanf("%99s", searchnom);
+        getchar(); 
+
+        for (int i = 0; i < nmr; i++) {
+            if (stricmp(searchnom, tab[i].nom) == 0) {
+                trouv = 1;
+                pos = i;
+                Affichefois(tab[i]); 
+                break;
             }
-            return j;
-           
+        }
 
-     }while(trouv!=1);}
+        if (!trouv) {
+            printf("Joueur non trouvé, veuillez réessayer.\n");
+        }
+
+    } while (!trouv);
+
+    return pos;
+}
+
 
 
 void Recherche(){
@@ -273,35 +293,66 @@ void Recherche(){
 }
 
 
+
 void modpost(){
+    int pos = recherchId();
+    if (pos == -1) {
+        printf("Erreur inattendue : joueur non trouvé.\n");
+        return;
+    }
+
     char nvlpost[20];
-      struct Joueur j=recherchnom();
-      printf("entrer la nouvelle valeur  post");
-        scanf("%s",nvlpost);
-         strcpy(j.poste,nvlpost);
-         Affichefois(j);
-                        
-      
+    printf("Entrer la nouvelle valeur poste : ");
+    scanf("%19s", nvlpost);
+
+    strcpy(tab[pos].poste, nvlpost);
+
+
+     printf("==============================================");
+
+    printf("Modification réussie. Nouveau poste :\n");
+    for(int i=0;i<nmr;i++){
+         Affichefois(tab[i]);
+    }
+   
 }
+
+
 
     
 void modage(){
    int nvlage;
-      struct Joueur j=recherchnom();
-      printf("entrer la nouvelle valeur  age");
-        scanf("%d",nvlage);
-        j.age=nvlage;
-         Affichefois(j);
+   int pos=recherchId();
+   
+
+    printf("Entrer la nouvelle valeur age : ");
+    scanf("%d", &nvlage);
+
+    tab[pos].age= nvlage;
+
+    printf("Modification réussie :\n");
+    for(int i=0;i<nmr;i++){
+         Affichefois(tab[i]);
+    } 
+      
                         
       
 }
+ 
 void modbuts(){
    int nvlbuts;
-      struct Joueur j=recherchnom();
-      printf("entrer la nouvelle valeur  buts");
-        scanf("%d",nvlbuts);
-         j.buts=nvlbuts;
-         Affichefois(j);
+   int pos=recherchId();
+   
+
+    printf("Entrer la nouvelle valeur age : ");
+    scanf("%d", &nvlbuts);
+
+   tab[pos].buts=nvlbuts;
+
+    printf("Modification réussie :\n");
+    for(int i=0;i<nmr;i++){
+         Affichefois(tab[i]);
+    } 
                         
       
 }
@@ -322,20 +373,140 @@ void Modifier(){
             modage();
             break;
         default:
-            printf("");
+            printf(" ");
     }
     
+}
+
+
+void AffichenmbTotal(){
+    printf("le nombre totale de  joueur%d\n",nmr);
+    printf("===================================================");
+
+ }
+void AfficherAgemoyen(){
+   int s=0;
+   int moyen;
+
+   for(int i=0;i<nmr;i++){
+        s=s+tab[i].age;
+
+   }
+   moyen=s/nmr;
+   printf("la moyen des ages est:%d\n",moyen);
+
+ } 
+void AfficheplusButs(){
+    int entrebut;
+    
+    printf("entrer le nombre but");
+    scanf("%d",&entrebut);
+   
+    for(int i=0;i<nmr;i++){
+        if(entrebut>tab[i].buts){
+            printf("il n'a pas de joueur marqueé plus de ce but ");
+        }
+        else{
+            printf("voilà les joueurs qui ont  marqué plus  à de  le but entrer ");
+            Affichefois(tab[i]);
+            printf("===================================================");
+        }
+
+    }
+    
+}
+void Affichemeilleurbuteur(){
+    int maxbut;
+    int pos;
+    maxbut=tab[0].buts;
+    for(int i=0;i<nmr;i++){
+        if(maxbut<tab[i].buts){
+            maxbut=tab[i].buts;
+            pos=i;
+
+        }
+    }
+    printf("le meuilleur buteur\n");
+    Affichefois(tab[pos]);
+    printf("===================================================");
+    
+}
+void AfficeheAgéJeune(){
+    int Agé;
+    int jeuné;
+    int pos;
+    Agé = tab[0].age;
+    jeuné = tab[0].age;
+
+    for(int i=0;i<nmr;i++){
+        if(tab[i].age>Agé){
+            Agé=tab[i].age;
+            pos=i;
+            
+            
+        }
+
+        
+    }
+     printf("le   le plus agé de joueur:\n");
+    Affichefois(tab[pos]);
+
+    for(int j=0;j<nmr;j++){
+        if(tab[j].age<jeuné){
+            Agé=tab[j].age;
+            pos=j;
+            
+            
+        }
+        
+    }
+    printf("le plus  le plus jeune de joueur:\n");
+    Affichefois(tab[pos]);
+}
+
+void AfficheStatique(){
+    int nmb;
+    int choixMenu=1;
+    do{
+        printf("1 pour afficher le nombre total de joueurs \n2 pour afficher age moyen joueurs\n3 les joueurs ayant marqué plus de entrer but\n4le meilleur buteur \n5Afficher le joueur le plus jeune et le plus âgé.\n \n\n");
+        scanf("%d",&nmb);
+        switch(nmb){
+            case 1:
+                AffichenmbTotal();
+                break;
+            case 2:
+                AfficherAgemoyen();
+                break;
+            case 3:
+                AfficheplusButs();
+                break;
+            case 4:
+                Affichemeilleurbuteur();
+                break;
+            case 5:
+                AfficeheAgéJeune();
+                break;
+           
+
+        }
+         printf("Choisir 1 pour afficher le menu de statique, 0 pour sortir : ");
+        scanf("%d",&choixMenu);
+    
+    }while(nmb!=1||nmb!=2||nmb!=3&&choixMenu==1);
+    
+    
+
 }
  
    
  
 
 int main() {
-    int choixMenu = 1;
+    int choixMenu=1;
     int nmb;
 
     do {
-        printf("Choisir le nombre que vous voulez:\n 1 pour ajouter\n 2 pour afficher\n 3 pour Suppression\n 4 pour search\n 5 pour rechercher\n");
+        printf("Choisir le nombre que vous voulez:\n 1 pour ajouter\n 2 pour afficher\n 3 pour Suppression\n 4 pour Rechercher\n 5 pour modifier\n 6 Satatistiques\n\n");
         scanf("%d", &nmb);
 
         switch (nmb) {
@@ -356,7 +527,10 @@ int main() {
                 break;
             case 5:
                 Modifier();
-                
+               
+                break;
+            case 6:
+                AfficheStatique();
                
                 break;
             default:
@@ -365,7 +539,7 @@ int main() {
         }
 
         printf("Choisir 1 pour afficher le menu, 0 pour sortir : ");
-        scanf("%d", &choixMenu);
+        scanf("%d",&choixMenu);
 
     } while (choixMenu == 1);
 
