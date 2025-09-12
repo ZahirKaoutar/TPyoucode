@@ -4,6 +4,7 @@
 struct Joueur {
     int id;
     char nom[100];
+    char prénom[100];
     int numeroMaillot;
     char poste[20];
     int age;
@@ -13,16 +14,16 @@ struct Joueur {
 struct Joueur tab[100];
 
 struct Joueur tab[] = {
-    {1, "wafi", 24, "defenseur", 19, 20},
-    {2, "Jasimi",27, "attaquant", 16, 34},
-    {3, "amali",27, "milieu", 16, 34},
-    {4, "wafi", 28, "defenseur", 19, 20}
-    {5, "kanoni", 29, "defenseur", 34, 34},
-    {6, "naciri",7, "attaquant", 16, 38},
-    {7, "wakifi",2, "milieu", 14, 34},
-    {8, "zahir", 18, "defenseur", 19, 20},
-    {9, "elhani",2, "gardiant", 17, 34},
-    {10, "zahir", 11, "gardiant", 40, 20}
+    {1, "wafi", "amine", 24, "defenseur", 19, 20},
+    {2, "Jasimi","amine",27, "attaquant", 16, 34},
+    {3, "amali","amine",27, "milieu", 16, 34},
+    {4, "wafi","amine", 28, "defenseur", 19, 20},
+    {5, "kanoni","amine", 29, "defenseur", 34, 34},
+    {6, "naciri","amine",7, "attaquant", 16, 38},
+    {7, "wakifi","amine",2, "milieu", 14, 34},
+    {8, "zahir","amine", 18, "defenseur", 19, 20},
+    {9, "elhani","amine",2, "gardiant", 17, 34},
+    {10, "zahir","amine", 11, "gardiant", 40, 20}
 };
 
 int nmr = 10, id = 10;  
@@ -33,6 +34,12 @@ void Ajoutfois() {
     printf("Entrer le nom: ");
     // scanf(" %[^\n]", tab[nmr].nom);
     scanf(" %s", tab[nmr].nom);
+    getchar();
+
+
+    printf("Entrer le prenom: ");
+    // scanf(" %[^\n]", tab[nmr].nom);
+    scanf(" %s", tab[nmr].prénom);
     getchar();
 
     printf("Numéro Maillot: ");
@@ -47,29 +54,30 @@ void Ajoutfois() {
     printf("Buts: ");
     scanf("%d", &tab[nmr].buts);
     getchar();
-
-    printf("Entrer le rôle de joueur ('gardiant','défenseur', 'milieu','attaquant'): ");
-    // scanf(" %[^\n]", role);
-     scanf("%s",role);
-        getchar();
-
     int valide = 0;
-    for (int i = 0; i < 4; i++) {
+    do{
+        printf("Entrer le rôle de joueur ('gardiant','défenseur', 'milieu','attaquant'): ");
+    // scanf(" %[^\n]", role);
+        scanf("%s",role);
+        getchar();
+         for (int i = 0; i < 4; i++) {
         if (stricmp(role, roles[i]) == 0) {
             valide = 1;
             strcpy(tab[nmr].poste, role);
             break;
         }
     }
-
-    if (!valide) {
+     if (!valide) {
         printf("Erreur : il faut entrer un des rôles suivants : gardiant, défenseur, milieu, attaquant\n");
-        // scanf(" %[^\n]", role);
-        scanf("%s",role);
-        getchar();
-        return;
+       
+        
     }
 
+
+
+
+    }while(!valide);
+    
     tab[nmr].id = id + 1;
     id++;
     nmr++;
@@ -107,10 +115,11 @@ void Ajouterjoueur() {
 }
 
 
-struct  Joueur Affichefois(struct Joueur J){
+  void Affichefois(struct Joueur J){
     
             printf("id  %d\n",J.id);
             printf("le nom %s\n",J.nom);
+             printf("le nom %s\n",J.prénom);
             printf("le numeroMaillot  %d\n",J.numeroMaillot);
              printf("le post %s\n",J.poste);
           
@@ -118,12 +127,11 @@ struct  Joueur Affichefois(struct Joueur J){
              
             printf("buts%d\n",J.buts);
             printf("=====================================================\n");
-            return J;
+           
 
             
     
 }
-
 
 
 
@@ -179,8 +187,9 @@ void Affichepost(){
 
         for(int i=0; i<nmr; i++){
             if(stricmp(tab[i].poste,roles[j]) == 0){
+                  trouv = 1;
                 Affichefois(tab[i]);
-                trouv = 1;
+              
             }
         }
 
@@ -209,6 +218,8 @@ void AfficherJoueur() {
              Affichepost();
             
             break;
+        default:
+            printf("ce choix ne trouve");
 
 
     }
@@ -221,7 +232,7 @@ void AfficherJoueur() {
 int recherchId(){
     int idsearch;
     int trouv = 0;
-    int pos = -1;
+    int pos=-1 ;
 
     do {
         printf("Entrer le id à rechercher : ");
@@ -259,7 +270,7 @@ void supprime(){
    }
     nmr--;
    
-    printf("bonne suppression LA LISTE à pres suppression\n");
+    printf("bonne suppression LA LISTE  apres suppression\n");
    for(int i=0;i<nmr;i++){
      Affichefois(tab[i]);
   }
@@ -311,7 +322,7 @@ void Recherche(){
             recherchId();
             break;
         default:
-            printf("");
+            printf("ce choix ne trouve pas");
     }
    
 }
@@ -327,7 +338,9 @@ void modpost(){
 
     char nvlpost[20];
     printf("Entrer la nouvelle valeur poste : ");
-    scanf("%19s", nvlpost);
+    scanf("%s", nvlpost);
+    getchar();
+
 
     strcpy(tab[pos].poste, nvlpost);
 
@@ -368,7 +381,7 @@ void modbuts(){
    int pos=recherchId();
    
 
-    printf("Entrer la nouvelle valeur age : ");
+    printf("Entrer la nouvelle valeur buts : ");
     scanf("%d", &nvlbuts);
 
    tab[pos].buts=nvlbuts;
@@ -397,7 +410,7 @@ void Modifier(){
             modage();
             break;
         default:
-            printf(" ");
+            printf("ce choix ne trouve pas ");
     }
     
 }
@@ -464,14 +477,15 @@ void Affichemeilleurbuteur(){
 void AfficeheAgéJeune(){
     int Agé;
     int jeuné;
-    int pos;
+    int posjeuné;
+    int posagé;
     Agé = tab[0].age;
     jeuné = tab[0].age;
 
     for(int i=0;i<nmr;i++){
         if(tab[i].age>Agé){
             Agé=tab[i].age;
-            pos=i;
+            posagé=i;
             
             
         }
@@ -479,23 +493,24 @@ void AfficeheAgéJeune(){
         
     }
      printf("le   le plus agé de joueur:\n");
-    Affichefois(tab[pos]);
+        Affichefois(tab[posagé]);
 
     for(int j=0;j<nmr;j++){
         if(tab[j].age<jeuné){
-            Agé=tab[j].age;
-            pos=j;
+            jeuné=tab[j].age;
+            posjeuné=j;
             
             
         }
         
     }
     printf("le plus  le plus jeune de joueur:\n");
-    Affichefois(tab[pos]);
+    Affichefois(tab[posjeuné]);
 }
 
 void AfficheStatique(){
     int nmb;
+  
   
     
         printf("1 pour afficher le nombre total de joueurs \n2 pour afficher age moyen joueurs\n3 les joueurs ayant marqué plus de but x entrer \n4le meilleur buteur \n5Afficher le joueur le plus jeune et le plus âgé.\n \n\n");
@@ -517,13 +532,14 @@ void AfficheStatique(){
                 AfficeheAgéJeune();
                 break;
             default:
-                printf("cette valeur ne trouve pas");
+                printf("Cette valeur ne correspond à aucune option.\n");
+                break;
            
 
         }
          
     
-    }while(choixMenu);
+    
     
     
 
@@ -565,12 +581,14 @@ int main() {
                
                 break;
             default:
-            printf("cette valeur ne trouve pas ");
+            printf("cette valeur ne trouve pas \n");
+                break;
                
         }
 
         printf("Choisir 1 pour afficher le menu, 0 pour sortir : ");
         scanf("%d",&choixMenu);
+
 
     } while (choixMenu == 1);
 
